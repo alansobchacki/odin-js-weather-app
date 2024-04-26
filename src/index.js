@@ -1,34 +1,49 @@
-import { setCurrentCity, currentCity } from "./weather";
-
 // index.js will handle DOM logic only
 
-function displayWeather() {
-  const weatherDisplay = document.getElementById("weather-contents");
+import { setWeatherForecast, weatherForecast } from "./weather";
 
-  weatherDisplay.innerHTML = `
-    <p>City: ${currentCity.city_name}</p>
-    <p>Condition: ${currentCity.condition}</p>
-    <p>Temp (celsius): ${currentCity.temp_c}</p>
-    <p>Temp (farenheit): ${currentCity.temp_f}</p>
-    <p>Feels like (celsiuis): ${currentCity.feelslike_c}</p>
-    <p>Feels like (farenheit): ${currentCity.feelslike_f}</p>
+// properly formats and displays the city name in case the user enters something like "LonDoN"
+function displayCity() {
+  const cityName = document.getElementById("city").value.toLowerCase();
+  const formatedCityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
+  const cityDisplay = document.getElementById("weather-city");
+
+  cityDisplay.innerHTML = `
+    <p>The weather forecast for ${formatedCityName} over the next three days is:<p>
   `;
 }
 
+// displays the weather for the next 3 days
+// 7 days would be the ideal, but it requires paid API access
+function displayWeather() {
+  const weatherDisplay = document.getElementById("weather-contents");
+
+  weatherForecast.forEach((day) => {
+    const dailyWeather = document.createElement("div");
+
+    dailyWeather.innerHTML = `
+      <p>Day: ${day.date}</p>
+      <p>Temp (celsius): ${day.temp_c}</p>
+      <p>Temp (farenheit): ${day.temp_f}</p>
+      <p>Condition: ${day.condition}</p>
+      <img src=https:${day.condition_icon}>
+    `;
+
+    weatherDisplay.appendChild(dailyWeather);
+  });
+}
+
 async function fetchWeather(event) {
+  // removes default form behavior, preventing the page from refreshing after pressing the form submit button
   event.preventDefault();
 
-  await setCurrentCity();
+  await setWeatherForecast();
+  displayCity();
   displayWeather();
 }
 
-// removes default form behavior, preventing the page from refreshing after pressing the form submit button
 document
   .getElementById("weather-form")
   .addEventListener("submit", fetchWeather);
 
-// to-do stuff
-// improve form validation (reject numbers, etc)
-// fetch data for next 3 days [ ]
-// show data for next 3 days [ ]
 // improve css [ ]

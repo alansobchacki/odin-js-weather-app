@@ -1,22 +1,27 @@
-let currentCity = "";
+// eslint-disable-next-line import/no-mutable-exports
+let weatherForecast = [];
 
-async function setCurrentCity() {
+async function setWeatherForecast() {
+  weatherForecast = [];
   const userInput = document.getElementById("city").value;
 
   const fetchedCity = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=262fb141faa34d58844195452242304&q=${userInput}`,
+    `https://api.weatherapi.com/v1/forecast.json?key=262fb141faa34d58844195452242304&q=${userInput}&days=3`,
   );
 
   const cityData = await fetchedCity.json();
 
-  currentCity = {
-    city_name: cityData.location.name,
-    temp_c: cityData.current.temp_c,
-    temp_f: cityData.current.temp_f,
-    feelslike_c: cityData.current.feelslike_c,
-    feelslike_f: cityData.current.feelslike_f,
-    condition: cityData.current.condition.text,
-  };
+  cityData.forecast.forecastday.forEach((forecastDay) => {
+    const currentDay = {
+      date: forecastDay.date,
+      temp_c: forecastDay.day.avgtemp_c,
+      temp_f: forecastDay.day.avgtemp_f,
+      condition: forecastDay.day.condition.text,
+      condition_icon: forecastDay.day.condition.icon,
+    };
+
+    weatherForecast.push(currentDay);
+  });
 }
 
-export { setCurrentCity, currentCity };
+export { setWeatherForecast, weatherForecast };
