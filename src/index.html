@@ -6,21 +6,26 @@
     <title>Document</title>
   </head>
   <body>
-    <div>
-      <form id="weather-form">
-        <label>City Name:</label><br />
-        <input
-          id="city"
-          type="text"
-          placeholder="Write the city name here..."
-          required
-        /><br />
-        <button type="submit">Checkout the weather!</button>
-      </form>
+    <div id="main-container">
+      <div id="weather-input">
+        <form id="weather-form">
+          <label id="input-city-label"
+            >Welcome! To check the weather forecast, enter the desired city name
+            below:</label
+          ><br />
+          <input
+            id="city"
+            type="text"
+            placeholder="Write the city name here..."
+            required
+          /><br />
+          <button id="weather-button" type="submit">Show forecast</button>
+        </form>
+      </div>
+
+      <div id="announcer"></div>
+
+      <div id="weather-contents"></div>
     </div>
-
-    <div id="weather-city"></div>
-
-    <div id="weather-contents"></div>
   </body>
 </html>

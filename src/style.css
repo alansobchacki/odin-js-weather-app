@@ -1,0 +1,91 @@
+/* global settings to make things work */
+body {
+  background-color: black;
+  color: white;
+  font-family: sans-serif;
+}
+
+#main-container {
+  display: grid;
+  grid-template: 0.2fr 0.1fr 1fr / 1fr;
+}
+
+/* top part of website (form to insert city, button to send form) */
+#weather-input {
+  grid-row: 1 / 2;
+
+  display: grid;
+  justify-items: center;
+}
+
+#input-city-label {
+  display: block;
+  text-align: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  font-size: 1.4rem;
+}
+
+#city {
+  height: 25px;
+  padding: 2%;
+}
+
+#weather-form {
+  display: grid;
+  justify-items: center;
+}
+
+#weather-button {
+  border: none;
+  width: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 2%;
+  margin: 2%;
+  background-color: rgb(69, 201, 109);
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+#weather-button:hover {
+  cursor: pointer;
+  background-color: rgb(75, 219, 119);
+}
+
+/* mid part of website (city name / error message announcer) */
+#announcer {
+  grid-row: 2 / 3;
+
+  display: grid;
+  justify-items: center;
+}
+
+.message {
+  font-size: 1.2rem;
+}
+
+/* bottom part of website (weather cards) */
+#weather-contents {
+  grid-row: 3 / 4;
+
+  display: grid;
+  grid-template: 1fr / repeat(3, 1fr);
+  justify-items: center;
+}
+
+.weather-card {
+  border-left: 6px solid rgb(124, 175, 199);
+  border-radius: 15px;
+
+  padding-left: 5%;
+  padding-right: 15%;
+
+  background-color: #0e0e0e;
+  transition: background-color 0.3s ease;
+}
+
+.weather-card:hover {
+  background-color: rgb(53, 52, 52);
+}

@@ -1,15 +1,16 @@
 // index.js will handle DOM logic only
 
+import "./style.css";
 import { setWeatherForecast, weatherForecast } from "./weather";
 
 // properly formats and displays the city name in case the user enters something like "LonDoN"
-function displayCity() {
+function displayCityName() {
   const cityName = document.getElementById("city").value.toLowerCase();
   const formatedCityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
-  const cityDisplay = document.getElementById("weather-city");
+  const cityDisplay = document.getElementById("announcer");
 
   cityDisplay.innerHTML = `
-    <p>The weather forecast for ${formatedCityName} over the next three days is:<p>
+    <p class="message">The weather forecast for ${formatedCityName} over the next three days is:</p>
   `;
 }
 
@@ -20,6 +21,7 @@ function displayWeather() {
 
   weatherForecast.forEach((day) => {
     const dailyWeather = document.createElement("div");
+    dailyWeather.classList.add("weather-card");
 
     dailyWeather.innerHTML = `
       <p>Day: ${day.date}</p>
@@ -33,12 +35,21 @@ function displayWeather() {
   });
 }
 
+// Since performance isn't an issue (it's only 3 divs), I prefer writing this way
+// rather than using the 'while removeChild' loop.
+function resetDisplay() {
+  const weatherDisplay = document.getElementById("weather-contents");
+
+  weatherDisplay.innerHTML = ``;
+}
+
 async function fetchWeather(event) {
   // removes default form behavior, preventing the page from refreshing after pressing the form submit button
   event.preventDefault();
 
   await setWeatherForecast();
-  displayCity();
+  resetDisplay();
+  displayCityName();
   displayWeather();
 }
 
@@ -46,4 +57,6 @@ document
   .getElementById("weather-form")
   .addEventListener("submit", fetchWeather);
 
+// to-do stuff:
+// add a rule that shows an error message if the API couldn't fetch their input value [ ]
 // improve css [ ]
