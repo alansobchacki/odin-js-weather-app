@@ -76,11 +76,13 @@ body {
 }
 
 .weather-card {
+  display: grid;
+  justify-items: center;
+
   border-left: 6px solid rgb(124, 175, 199);
   border-radius: 15px;
 
-  padding-left: 5%;
-  padding-right: 15%;
+  width: 300px;
 
   background-color: #0e0e0e;
   transition: background-color 0.3s ease;
@@ -88,4 +90,15 @@ body {
 
 .weather-card:hover {
   background-color: rgb(53, 52, 52);
+}
+
+.date,
+.condition {
+  font-size: 1.1.rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.temp {
+  padding-left: 2%;
 }
